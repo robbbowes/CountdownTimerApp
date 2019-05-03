@@ -14,6 +14,8 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity {
 
     int timeToDisplayInt;
+    boolean manuallyStopped;
+    boolean isPaused;
     CountDownTimer countDownTimer;
 
     @Override
@@ -52,21 +54,37 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
     }
 
     public void clickStart(View view) {
         startStopHelper(false);
+        manuallyStopped = false;
+        SeekBar seekBar = findViewById(R.id.seekBarTime);
+        timeToDisplayInt = seekBar.getProgress();
         countDownTimer = createTimer();
         countDownTimer.start();
     }
 
     public void clickStop(View view) {
         startStopHelper(true);
+        manuallyStopped = true;
         if (countDownTimer != null) {
             countDownTimer.cancel();
+            countDownTimer.onFinish();
+        }
+    }
+
+    public void clickPause(View view) {
+        if (countDownTimer != null) {
+            if (!isPaused) {
+                countDownTimer.cancel();
+                isPaused = true;
+            } else {
+                countDownTimer.start();
+                isPaused = false;
+            }
         }
     }
 
@@ -93,7 +111,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
+                if (!manuallyStopped) {
+                    Log.i("onFinish()", "Ran to end");
+                } else {
+                    Log.i("onFinish()", "Manually stopped");
+                }
             }
         };
     }
