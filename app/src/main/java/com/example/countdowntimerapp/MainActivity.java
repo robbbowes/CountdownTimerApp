@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.startButton).setEnabled(enable);
     }
 
-    private String displayTimeCorrectly(int i) {
+    protected String displayTimeCorrectly(int i) {
         int minutes = i / 60;
         int seconds = i % 60;
         DecimalFormat decimalFormat = new DecimalFormat("00");
