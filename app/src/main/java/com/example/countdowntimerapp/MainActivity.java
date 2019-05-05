@@ -15,22 +15,24 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    int timeToDisplayInt;
-    boolean manuallyStopped;
-    boolean isPaused;
-    CountDownTimer countDownTimer;
-    MediaPlayer mediaPlayer;
+    private int timeToDisplayInt;
+    private boolean manuallyStopped;
+    private boolean isPaused;
+    private CountDownTimer countDownTimer;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView seekBarTextView = findViewById(R.id.seekBarTextView);
-        SeekBar seekBarTimer = findViewById(R.id.seekBarTime);
+        // max length of time in seconds the timer can be set to
         final int max = 600;
         final int startingProgress = max / 2;
         timeToDisplayInt = startingProgress;
+
+        final TextView seekBarTextView = findViewById(R.id.seekBarTextView);
+        SeekBar seekBarTimer = findViewById(R.id.seekBarTime);
         seekBarTimer.setMax(max);
         seekBarTimer.setProgress(startingProgress);
         String startingProgressString = displayTimeCorrectly(startingProgress);
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // helper function to set buttons as being enabled or not
     private void startStopHelper(boolean enable) {
         SeekBar seekBar = findViewById(R.id.seekBarTime);
         seekBar.setEnabled(enable);
@@ -114,11 +117,13 @@ public class MainActivity extends AppCompatActivity {
         return decimalFormat.format(minutes) + ":" + decimalFormat.format(seconds);
     }
 
+    // remove blinking animation when paused
     private void setSolid(TextView textview) {
         Animation animation = new AlphaAnimation(0.0f, 1.0f);
         textview.startAnimation(animation);
     }
 
+    // add blinking animation when paused
     private void makeBlink(TextView textView) {
         Animation animation = new AlphaAnimation(0.0f, 1.0f);
         animation.setDuration(500);
