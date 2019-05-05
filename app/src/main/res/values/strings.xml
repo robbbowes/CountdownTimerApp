@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CountdownTimerApp</string>
+    <string name="background_image">Background Image Stopwatch</string>
+    <string name="start_button">Start</string>
+    <string name="pause_button">Pause</string>
+    <string name="stop_button">Stop</string>
 </resources>
